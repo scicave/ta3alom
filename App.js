@@ -1,6 +1,8 @@
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
+// Muhammad Samir
+
 export default function App() {
 	if (Platform.OS === "web") {
 		return (
