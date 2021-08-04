@@ -1,0 +1,66 @@
+swagger: "2.0"
+info:
+  description: |
+    This is Ta3alom project APIs, that fits the front-end needs, and will be coded by Mosab Emad insha'Allah.
+  version: 1.0.0
+  title: Ta3alom
+  contact:
+    email: scicaveteam@gmail.com
+  # license:
+  #   name: Apache 2.0
+  #   url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: ta3alom.com
+basePath: /api/v1
+externalDocs:
+  description: Find out more about these apis
+  url: /docs
+tags:
+  - name: course
+    description: Everything about courses
+  - name: instructor
+    description: Instructor operations
+  - name: user
+    description: Operations about user
+    externalDocs:
+      description: Find out more about user APIs
+      url: /docs/user
+schemes:
+  - https
+  - http
+
+paths:
+  /course:
+    $ref: "./routes/course.yaml#/Courses"
+  /course/findByTags:
+    $ref: "./routes/course.yaml#/CoursesFindByTags"
+  /course/{courseId}:
+    $ref: "./routes/course.yaml#/Course"
+  /course/{courseId}/uploadResource:
+    $ref: "./routes/course.yaml#/CourseUploadResource"
+  /user/signup:
+    $ref: "./routes/user.yaml#/Signup"
+  /user/login:
+    $ref: "./routes/user.yaml#/Login"
+
+securityDefinitions:
+  ta3alom_auth:
+    type: oauth2
+    authorizationUrl: /oauth/login
+    flow: implicit
+    scopes:
+      write:courses: modify courses in your account
+      read:courses: read your courses
+  api_token:
+    type: jwt
+    name: api_token
+    in: header
+
+definitions:
+  User:
+    $ref: "./schemas/User.yaml"
+  Course:
+    $ref: "./schemas/Course.yaml"
+  Order:
+    $ref: "./schemas/Order.yaml"
+  Category:
+    $ref: "./schemas/Category.yaml"
