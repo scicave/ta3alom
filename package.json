@@ -1,6 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "swagger": "live-server --open=./swagger",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -16,7 +17,9 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "live-server": "^1.2.1",
+    "swagger-ui-dist": "^4.0.0-beta.2"
   },
   "private": true
 }

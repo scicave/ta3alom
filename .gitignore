@@ -1,4 +1,13 @@
 node_modules/
+
+yarn-error.log
+dist/
+.cache/
+.parcel-cache/
+
+
+# ----- expo ignores
+
 .expo/
 npm-debug.*
 *.jks
