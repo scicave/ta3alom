@@ -8,12 +8,21 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.2",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
+    "formik": "^2.2.9",
+    "joi": "^17.4.1",
+    "joi-browser": "^13.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-router-dom": "^5.2.0",
+    "react-toastify": "^7.0.4",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
