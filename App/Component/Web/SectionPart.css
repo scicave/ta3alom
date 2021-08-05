@@ -1,0 +1,74 @@
+.container-part {
+}
+.container-part .info {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+.info .top-info {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 5px;
+	height: 50px;
+	width: 100%;
+}
+.info .top-info .icon {
+	margin-right: 12px;
+	width: 40px;
+	position: relative;
+	overflow: visible;
+}
+.info .top-info .icon .lock {
+	position: absolute;
+	right: 0;
+	left: 15px;
+	top: -5px;
+}
+.info .top-info p {
+	width: 400px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 20px;
+}
+.info .top-info .container-watched {
+	align-self: flex-end;
+	width: 70px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+.info .top-info .container-watched div {
+}
+.info .top-info .container-watched span {
+	color: #718096;
+	font-size: 13px;
+}
+.info .top-info .watch-rate-green {
+	width: 15px;
+	height: 15px;
+	border: 2px solid #4a5568;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #48bb78 0%, #48bb78 100%);
+	margin-left: 50px;
+}
+.info .top-info .watch-rate-yellow {
+	width: 15px;
+	height: 15px;
+	border: 2px solid #4a5568;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #ed8936 0%, #ecc94b 60.62%);
+}
+.info .bottom-info {
+	margin-top: -10px;
+	height: 18px;
+}
+.info .bottom-info span {
+	padding: 0 20px 0 20px;
+	color: #718096;
+	font-size: 15px;
+}
+.info .bottom-info span.section-num {
+	border-right: 1px solid #718096;
+}
