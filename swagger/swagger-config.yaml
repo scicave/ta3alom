@@ -29,18 +29,39 @@ schemes:
   - http
 
 paths:
-  /course:
+  /courses:
     $ref: "./routes/course.yaml#/Courses"
-  /course/findByTags:
+  /courses/findByTags:
     $ref: "./routes/course.yaml#/CoursesFindByTags"
   /course/{courseId}:
-    $ref: "./routes/course.yaml#/Course"
-  /course/{courseId}/uploadResource:
-    $ref: "./routes/course.yaml#/CourseUploadResource"
+    $ref: "./routes/course.yaml#/ACourse"
+
+  /course/{courseId}/resources:
+    $ref: "./routes/course.yaml#/CourseResources"
+  /course/{courseId}/resource/{reourseId}:
+    $ref: "./routes/course.yaml#/ACourseResource"
+  /course/{courseId}/resource/{reourseId}/uploadAttachment:
+    $ref: "./routes/course.yaml#/ACourseResource_UploadAttachment"
+
+  /notes:
+    $ref: "./routes/note.yaml#/Notes"
+
   /user/signup:
     $ref: "./routes/user.yaml#/Signup"
   /user/login:
     $ref: "./routes/user.yaml#/Login"
+
+definitions:
+  User:
+    $ref: "./schemas/User.yaml"
+  Course:
+    $ref: "./schemas/Course.yaml"
+  Order:
+    $ref: "./schemas/Order.yaml"
+  Category:
+    $ref: "./schemas/Category.yaml"
+  Note:
+    $ref: "./schemas/Note.yaml"
 
 securityDefinitions:
   ta3alom_auth:
@@ -55,12 +76,3 @@ securityDefinitions:
     name: api_token
     in: header
 
-definitions:
-  User:
-    $ref: "./schemas/User.yaml"
-  Course:
-    $ref: "./schemas/Course.yaml"
-  Order:
-    $ref: "./schemas/Order.yaml"
-  Category:
-    $ref: "./schemas/Category.yaml"

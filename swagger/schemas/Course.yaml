@@ -1,28 +1,38 @@
 type: object
 required:
-  - name
-  - photoUrls
+  - id
 properties:
   id:
-    type: integer
-    format: int64
+    type: string
+    format: uuid
+  title:
+    type: string
+    example: The very very awesome course
+  price:
+    type: string
   category:
     $ref: "./Category.yaml"
-  name:
-    type: string
-    example: doggie
-  photoUrls:
+  notes:
     type: array
     items:
-      type: string
+      $ref: "./Note.yaml"
+  announcements:
+    type: array
+    items:
+      $ref: "./Announcement.yaml"
+  resources:
+    type: array
+    items:
+      $ref: "./Resource.yaml"
   tags:
     type: array
     items:
-      $ref: "./Tag.yaml"
-  status:
-    type: string
-    description: course status in the store
-    enum:
-      - available
-      - pending
-      - sold
+      type: string
+      enum:
+        - computer-science
+        - webdev
+        - frontend
+        - react
+        - redux
+        - react-native
+        - git

@@ -3,5 +3,7 @@ properties:
   id:
     type: string
     format: uuid
-  name:
+  title:
+    type: string
+  studentId:
     type: string
