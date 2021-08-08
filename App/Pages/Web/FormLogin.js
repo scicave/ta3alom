@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
-import FormInput from "../../Component/Web/FormInput";
 import { Feather } from "@expo/vector-icons";
+import FormInput from "../../Component/Web/FormInput";
 
 // BackEnd Services
-import http from "../../services/httpService";
-import { apiUrl } from "../../config/config.json";
-import * as authService from "../../services/authService";
+import auth from "../../services/authService";
 
 const FormLogin = () => {
 	const [values, setValues] = useState({
@@ -48,10 +45,8 @@ const FormLogin = () => {
 		//calling backend
 		try {
 			const { username, password } = values;
-			const history = useHistory();
-			const { data: jwt } = await authService.login(username, password);
-			localStorage.setItem("token", jwt);
-			history.push("/");
+			await auth.login(username, password);
+			window.location = "/";
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...errors };

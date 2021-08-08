@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import FormInput from "../../Component/Web/FormInput";
 import Joi from "joi-browser";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router";
 import { Feather } from "@expo/vector-icons";
+import FormInput from "../../Component/Web/FormInput";
+import "react-toastify/dist/ReactToastify.css";
 
 // BackEnd Services
-import http from "../../services/httpService";
-import { apiUrl } from "../../config/config.json";
-import * as userService from "../../services/userService";
-import ErrorMessage from "../../Component/Web/ErrorMessage";
+import auth from "../../services/authService";
 
 const FormRegister = () => {
 	const [values, setValues] = useState({
@@ -58,10 +54,9 @@ const FormRegister = () => {
 
 		//calling backend
 		try {
-			const history = useHistory();
-			const response = await userService.register(values);
-			localStorage.setItem("token", response.headers["x-auth-token"]);
-			history.push("/");
+			const response = await auth.register(values);
+			auth.loginWithJwt(response.headers["x-auth-token"]);
+			window.location = "/";
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...errors };
@@ -231,18 +226,3 @@ const FormRegister = () => {
 };
 
 export default FormRegister;
-
-{
-	/* <label htmlFor="username" className="form-label">
-							Username
-						</label>
-						<input
-							className="form-input"
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter your username"
-							value={values.username}
-							onChange={handleChange}
-						/> */
-}
