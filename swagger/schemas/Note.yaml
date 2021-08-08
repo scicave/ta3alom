@@ -1,0 +1,22 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  note:
+    type: string
+    format: markdown
+  title:
+    type: string
+  courseId:
+    type: string
+  resourceId:
+    type: string
+  studentId:
+    type: string
+  date:
+    type: string
+    format: date
+  timestamp:
+    type: string
+    format: time

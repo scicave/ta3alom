@@ -1,0 +1,38 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+  title:
+    type: string
+    example: The very very awesome course
+  price:
+    type: string
+  category:
+    $ref: "./Category.yaml"
+  notes:
+    type: array
+    items:
+      $ref: "./Note.yaml"
+  announcements:
+    type: array
+    items:
+      $ref: "./Announcement.yaml"
+  resources:
+    type: array
+    items:
+      $ref: "./Resource.yaml"
+  tags:
+    type: array
+    items:
+      type: string
+      enum:
+        - computer-science
+        - webdev
+        - frontend
+        - react
+        - redux
+        - react-native
+        - git

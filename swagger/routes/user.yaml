@@ -1,0 +1,154 @@
+Signup:
+  post:
+    tags:
+      - user
+    summary: Create user
+    description: This can only be done by the logged in user.
+    operationId: createUser
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Created user object
+        required: true
+        schema:
+          $ref: "../schemas/User.yaml"
+    responses:
+      201: &authed_successfully
+        description: Signed-up successfully
+        schema:
+          description: JWT token to put in the localStorage
+          type: object
+          properties:
+            token:
+              type: string
+        headers:
+          X-Rate-Limit:
+            type: integer
+            format: int32
+            description: calls per hour allowed by the user
+          X-Expires-After:
+            type: string
+            format: date-time
+            description: date in UTC when token expires
+      400:
+        description: Invalid data supplied
+      409:
+        description: The user already exists
+
+
+Login:
+  get:
+    tags:
+      - user
+    summary: Logs user into the system
+    operationId: loginUser
+    produces:
+      - application/json
+    parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        type: string
+    responses:
+      200:
+        <<: *authed_successfully
+        description: Loged-in successfully
+      404:
+        description: Invalid username/password supplied, not found
+
+
+Logout:
+  get:
+    tags:
+      - user
+    summary: Logs out current logged in user session
+    operationId: logoutUser
+    produces:
+      - application/json
+    parameters: []
+    responses:
+      default:
+        description: successful operation
+
+User:
+  get:
+    tags:
+      - user
+    summary: Get user by user name
+    operationId: getUserByName
+    produces:
+      - application/json
+    parameters:
+      - name: username
+        in: path
+        description: The name that needs to be fetched. Use `user1` for testing.
+        required: true
+        type: string
+    responses:
+      200:
+        description: successful operation
+        schema:
+          $ref: "../schemas/User.yaml"
+      400:
+        description: Invalid username supplied
+      404:
+        description: User not found
+
+  put:
+    tags:
+      - user
+    summary: Updated user
+    description: >
+      This can only be done by the logged in user.
+      Authered courses will still alive, __undeleted__.
+    operationId: updateUser
+    produces:
+      - application/json
+    parameters:
+      - name: username
+        in: path
+        description: name that need to be updated
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Updated user object
+        required: true
+        schema:
+          $ref: "../schemas/User.yaml"
+    responses:
+      200:
+        description: Updated successfully
+      400:
+        description: Invalid user supplied
+      404:
+        description: User not found
+
+  delete:
+    tags:
+      - user
+    summary: Delete user
+    description: This can only be done by the logged in user.
+    operationId: deleteUser
+    produces:
+      - application/json
+    parameters:
+      - name: username
+        in: path
+        description: The name that needs to be deleted
+        required: true
+        type: string
+    responses:
+      400:
+        description: Invalid username supplied
+      404:
+        description: User not found
+

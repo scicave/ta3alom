@@ -1,0 +1,325 @@
+Courses:
+  post:
+    tags:
+      - course
+    summary: Add a new course
+    operationId: create
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Course object that needs to be created
+        required: true
+        schema:
+          $ref: "../schemas/Course.yaml"
+    responses:
+      201:
+        description: New course is successfully created
+      400:
+        description: Bad request, bad body data, you should follow the schema
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+  get:
+    tags:
+      - course
+    summary: Finds Courses
+    description: Finds courses by category, price range, title (fuzzy)
+    operationId: get
+    produces:
+      - application/json
+    parameters:
+      - name: query
+        in: query
+        description: Quest to elastic search courses by title and short and long description
+        items:
+          type: string
+          enum: &categories
+            - computer science
+            - electrical engineering
+            - mechanical engineering
+            - medicine
+          default: ""
+        collectionFormat: multi
+      - name: category
+        in: query
+        description: Category of the course, categories are predefined by Ta3alom team (comma separated)
+        type: srting
+        collectionFormat: multi
+    responses:
+      200:
+        description: successful operation
+        schema:
+          type: array
+          items:
+            $ref: "../schemas/Course.yaml"
+      400:
+        description: Invalid status value
+    security:
+      - api_token: []
+
+CoursesFindByTags:
+  get:
+    deprecated: true
+    tags:
+      - course
+    summary: Finds Courses by tags
+    description: Muliple tags can be provided with comma separated strings. Use\
+      \ tag1, tag2, tag3 for testing.
+    operationId: findCoursesByTags
+    produces:
+      - application/json
+    parameters:
+      - name: tags
+        in: query
+        description: Tags to filter by
+        required: true
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+    responses:
+      200:
+        description: successful operation
+        schema:
+          type: array
+          items:
+            $ref: "../schemas/Course.yaml"
+      400:
+        description: Invalid tag value
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+ACourse:
+  get:
+    tags:
+      - course
+    summary: Find course by ID
+    description: Returns a single course
+    operationId: get
+    produces:
+      - application/json
+    parameters:
+      - name: courseId
+        in: path
+        description: ID of course to return
+        required: true
+        type: string
+    responses:
+      200:
+        description: Course found
+        schema:
+          $ref: "../schemas/Course.yaml"
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+    security:
+      - api_token: []
+
+  put:
+    tags:
+      - course
+    summary: Update an existing course
+    operationId: update
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Course object with the new data to be updated
+        required: true
+        schema:
+          $ref: "../schemas/Course.yaml"
+    responses:
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+      405:
+        description: Validation exception
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+  delete:
+    tags:
+      - course
+    summary: Deletes a course
+    operationId: delete
+    produces:
+      - application/json
+      - application/xml
+    parameters:
+      - name: api_token
+        in: header
+        required: false
+        type: string
+      - name: courseId
+        in: path
+        description: Course id to delete
+        required: true
+        type: string
+    responses:
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+CourseResources:
+  post:
+    tags:
+      - course
+    summary: uploads a resource (video, file, article).
+    operationId: upload
+    consumes:
+      - multipart/form-data
+    produces:
+      - application/json
+    parameters:
+      - name: resourceId
+        in: path
+        description: ID of the resource to update
+        type: string
+      - name: metaData
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      - name: resourceType
+        in: formData
+        description: the resource type
+        type: string
+      - name: content
+        in: formData
+        description: >
+          depends upon the `resourceType`, maybe a video,
+          file, or markdown with attachments
+        required: false
+        type:
+          anyOf:
+            - file
+            - string
+    responses:
+      200:
+        description: successful operation
+        schema:
+          $ref: "../schemas/Course.yaml"
+    security:
+      ta3alom_auth:
+        - write:courses
+        - read:courses
+
+ACourseResource:
+  get:
+    tags:
+      - course
+    summary: Find a course resource by its ID
+    description: Returns a single resource
+    operationId: getById
+    produces:
+      - application/json
+    parameters:
+      - name: courseId
+        in: path
+        description: ID of course to return
+        required: true
+        type: string
+    responses:
+      200:
+        description: Course found
+        schema:
+          $ref: "../schemas/Course.yaml"
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+    security:
+      - api_token: []
+
+  put:
+    tags:
+      - course
+    summary: Update an existing course
+    operationId: update
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Course object with the new data to be updated
+        required: true
+        schema:
+          $ref: "../schemas/Course.yaml"
+    responses:
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+      405:
+        description: Validation exception
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+  delete:
+    tags:
+      - course
+    summary: Deletes a course
+    operationId: delete
+    produces:
+      - application/json
+      - application/xml
+    parameters:
+      - name: api_token
+        in: header
+        required: false
+        type: string
+      - name: courseId
+        in: path
+        description: Course id to delete
+        required: true
+        type: string
+    responses:
+      400:
+        description: Invalid ID supplied
+      404:
+        description: Course not found
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+ACourseResource_UploadAttachment:
+  tags:
+    - course
+  summary: Add an attachment to 
+  operationId: create
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  parameters:
+    - in: body
+      name: body
+      description: Course object that needs to be created
+      required: true
+      schema:
+        $ref: "../schemas/Course.yaml"

@@ -1,0 +1,17 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  notes:
+    type: array
+    items:
+      $ref: "./Note.yaml"
+  title:
+    type: string
+  type:
+    type: string
+  content:
+    type: blob
+  metadata:
+    type: object

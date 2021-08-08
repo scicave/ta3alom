@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  notes:
+    type: array
+    items:
+      $ref: "./Note.yaml"
+  title:
+    type: string
+  type:
+    type: string
+  studentId:
+    type: string
+  date:
+    type: string
+    format: date
+  timestamp:
+    type: string
+    format: time

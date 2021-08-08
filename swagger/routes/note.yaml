@@ -1,0 +1,69 @@
+Notes:
+  post:
+    tags:
+      - course
+    summary: Add notes to a course or a resource
+    operationId: create
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Array of notes to add
+        required: true
+        schema:
+          type: array
+          itesm:
+            $ref: "../schemas/Note.yaml"
+    responses:
+      201:
+        description: New notes are successfully created
+      400:
+        description: Bad request, bad body data, you should follow the schema
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses
+
+  get:
+    tags:
+      - course
+    summary: Find notes
+    description: Finds all notes of a course or a resource
+    operationId: get
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description: Either of courseId, resourceId, or noteId
+        required: true
+        schema:
+          oneOf:
+            - type: object
+              properties:
+                courseId:
+                  type: string
+            - type: object
+              properties:
+                resourceId:
+                  type: string
+            - type: object
+              properties:
+                noteId:
+                  type: string
+    responses:
+      200:
+        description: successful operation
+        schema:
+          type: array
+          items:
+            $ref: "../schemas/Note.yaml"
+      400:
+        description: Invalid id
+    security:
+      - ta3alom_auth:
+          - write:courses
+          - read:courses

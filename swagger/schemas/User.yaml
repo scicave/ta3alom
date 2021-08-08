@@ -1,0 +1,22 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  username:
+    type: string
+  firstName:
+    type: string
+  lastName:
+    type: string
+  email:
+    type: string
+    format: email
+  password:
+    type: string
+    format: password
+  courses:
+    type: array
+    items:
+      $ref: "./Course.yaml"
+
